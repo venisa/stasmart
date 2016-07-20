@@ -17,13 +17,13 @@ The MetricLoader provides a service that runs every hour on the host whose perfo
 
 ## Configuration ##
 
-### Set up StasSmart API ###
+### Set up Statsmart API ###
 - Set up the centralized MYSQL database using [this](https://github.com/venisa/Statsmart/blob/master/src/main/scripts/query.sql) script
-- Clone the Git repo for Statsmart
-- Update the [config file](https://github.com/venisa/Statsmart/blob/master/src/main/resources/config.properties) in your local repo 
-- cd into Statsmart directory on local machine and build the project - 'mvn clean install'
-- Copy Statsmart-1.0-SNAPSHOT.jar from the target directory to the machine that will run the server for the api
-- start the Jetty server: java -jar Statsmart-1.0-SNAPSHOT.jar
+- Clone the Git repo for [Statsmart](https://github.com/venisa/statsmart)
+- Update the [config file](https://github.com/venisa/Statsmart/blob/master/src/main/resources/config.properties) for the api in your local repo 
+- Build the maven project 'mvn clean install'
+- Copy statsmart-api-1.0-SNAPSHOT.jar from the target directory to the machine that will run the server for the api
+- Start the Jetty server: java -jar statsmart-api-1.0-SNAPSHOT.jar
 
 ### Set up MetricLoader ###
 For every machine whose performance needs to be monitored, do the following:
@@ -31,9 +31,9 @@ For every machine whose performance needs to be monitored, do the following:
 - Add the ip address and hostname of the host to the host table in MYSQL. Sample Query: INSERT INTO Statsmart.host (ip, name) VALUES ('192.168.0.13', 'host3');
 - Clone the Git repo for Statsmart
 - Update the [config file](https://github.com/venisa/MetricLoader/blob/master/src/main/resources/config.properties) in your local repo. 
-- cd into Statsmart directory on local machine and build the project - 'mvn clean install'
-- copy metricloader-1.0-SNAPSHOT.jar from the target directory to the machine whose performance needs to be monitored.
-- Run [App.java](https://github.com/venisa/MetricLoader/blob/master/src/main/java/com/monitoring/application/App.java)
+- Build the maven project 'mvn clean install'
+- Copy metricloader-1.0-SNAPSHOT.jar from the target directory to the machine whose performance needs to be monitored.
+- Start the metricloader service: java -jar metricloader-1.0-SNAPSHOT.jar
 
 ### API Guide ###
 - Get information about all hosts in the system : http://serverhostname:portnumber/hosts
