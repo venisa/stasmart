@@ -1,0 +1,10 @@
+.idea
+*.iml
+*/.idea
+*/*.iml
+
+# Build artifacts get put in these folder. Never include build artifacts
+target
+
+# Clover's local files and also coverage report
+/target
