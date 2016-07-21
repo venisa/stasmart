@@ -36,10 +36,99 @@ For every machine whose performance needs to be monitored, do the following:
 - Start the metricloader service: java -jar metricloader-1.0-SNAPSHOT.jar
 
 ### API Guide ###
-- Get information about all hosts in the system : http://serverhostname:portnumber/hosts
-- Get average statistics of a particular host in the system : http://serverhostname:portnumber/hosts/host1
-- Get latest statistics of a particular host in the system: http://serverhostname:portnumber/hosts/latest
-- Get a summary of all the hosts in the system: http://serverhostname:portnumber/summary
+- Get information about all hosts in the system : 
+  - http://serverhostname:portnumber/hosts
+  ```json
+[
+  {
+    "ip": "192.148.0.11",
+    "name": "host3"
+  },
+  {
+    "ip": "192.186.0.12",
+    "name": "host1"
+  }
+]
+``` 
+- Get average statistics of a particular host in the system  
+  - http://serverhostname:portnumber/hosts/host1
+  ```json
+  {
+  "statistics": [
+    {
+      "fields": {
+        "cpu": "all",
+        "per_usr": 5.06,
+        "per_nice": 0,
+        "per_sys": 0.23,
+        "per_io_wait": 0.395
+      },
+      "host": "host1",
+      "metric": "cpu"
+    },
+    {
+      "fields": {
+        "total": 125.4,
+        "used": 13.6,
+        "free": 13.33
+      },
+      "host": "host1",
+      "metric": "memory"
+    }
+  ]
+}
+  ```
+- Get latest statistics of a particular host in the system 
+  - http://serverhostname:portnumber/hosts/latest
+ 
+- Get a summary of all the hosts in the system:
+  - http://serverhostname:portnumber/summary
+  ```json
+  {
+  "statistics": [
+    {
+      "fields": {
+        "cpu": "all",
+        "per_usr": 5.0616666666666665,
+        "per_nice": 0.005,
+        "per_sys": 0.2366666666666667,
+        "per_io_wait": 0.395
+      },
+      "host": "host1",
+      "metric": "cpu"
+    },
+    {
+      "fields": {
+        "cpu": "all",
+        "per_usr": 1.8,
+        "per_nice": 0.004,
+        "per_sys": 0.5359999999999999,
+        "per_io_wait": 0.374
+      },
+      "host": "host2",
+      "metric": "cpu"
+    },
+    {
+      "fields": {
+        "total": 1254,
+        "used": 136,
+        "free": 13.333333333333334
+      },
+      "host": "host1",
+      "metric": "memory"
+    },
+    {
+      "fields": {
+        "total": 230.8,
+        "used": 60.8,
+        "free": 13.8
+      },
+      "host": "host2",
+      "metric": "memory"
+    }
+  ]
+}
+  ```
 
 
 
