@@ -89,9 +89,9 @@ For every machine whose performance needs to be monitored, do the following:
     {
       "fields": {
         "cpu": "all",
-        "per_usr": 5.0616666666666665,
+        "per_usr": 5.061,
         "per_nice": 0.005,
-        "per_sys": 0.2366666666666667,
+        "per_sys": 0.236,
         "per_io_wait": 0.395
       },
       "host": "host1",
@@ -102,7 +102,7 @@ For every machine whose performance needs to be monitored, do the following:
         "cpu": "all",
         "per_usr": 1.8,
         "per_nice": 0.004,
-        "per_sys": 0.5359999999999999,
+        "per_sys": 0.53,
         "per_io_wait": 0.374
       },
       "host": "host2",
@@ -112,7 +112,7 @@ For every machine whose performance needs to be monitored, do the following:
       "fields": {
         "total": 1254,
         "used": 136,
-        "free": 13.333333333333334
+        "free": 13.33
       },
       "host": "host1",
       "metric": "memory"
