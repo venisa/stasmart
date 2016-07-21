@@ -20,6 +20,7 @@ import java.util.List;
 /**
  * Class containing methods to execute SQL queries to collect performance metrics from the database.
  */
+//TODO refactor
 public class SQLHelper {
 
     private static final String CPU_TABLE = SystemConfig.getStringProperty("cpu_table");
@@ -32,6 +33,10 @@ public class SQLHelper {
         this.connection = connection;
     }
 
+    /**
+     * Get a list of all the hosts configured in the system.
+     * @return List of Hosts configured in the system
+     */
     public List<Host> getHosts() {
 
         List<Host> hosts = new ArrayList<>();
@@ -56,6 +61,12 @@ public class SQLHelper {
         return hosts;
     }
 
+    /**
+     * For the given host, get the average of each metric.
+     *
+     * @param hostId  The hostId of the host whose performance metrics need to be retrieved
+     * @return Average statistics of the given host
+     */
     public Statistics getAverage(String hostId) {
 
         String cpuQuery = "SELECT host_name, cpu, AVG(per_usr) AS per_usr, AVG(per_nice) AS per_nice, AVG(per_sys) " +
@@ -67,6 +78,12 @@ public class SQLHelper {
         return getStatistics(cpuQuery, memoryQuery, hostId);
     }
 
+    /**
+     * For the given host get the latest metric.
+     *
+     * @param hostId  The hostId of the host whose performance metrics need to be retrieved
+     * @return The latest statistics of a host
+     */
     public Statistics getLatest(String hostId) {
 
         String memoryQuery = "SELECT total, used, free, host_name FROM " + MEMORY_TABLE + " WHERE host_name=? ORDER BY dateTime desc LIMIT 1;";
@@ -77,6 +94,11 @@ public class SQLHelper {
         return getStatistics(cpuQuery, memoryQuery, hostId);
     }
 
+    /**
+     * Get a summary of the performance of all the hosts in the system.
+     *
+     * @return A summary of the performance of all hosts in the system
+     */
     public Statistics getSummary() {
 
         String cpuQuery = "SELECT host_name, cpu, AVG(per_usr) AS per_usr, AVG(per_nice) AS per_nice, AVG(per_sys) AS " +
@@ -89,6 +111,13 @@ public class SQLHelper {
     }
 
 
+    /**
+     * Given SQL queries to be executed on CPU and Memory table, return the resultant statistics
+     *
+     * @param cpuQuery  SQL query to be executed on CPU table
+     * @param memoryQuery  SQL query to be executed on Memory table
+     * @return  The resultant statistics
+     */
     public Statistics getStatistics(String cpuQuery, String memoryQuery) {
         List<Metric> metrics = new ArrayList<>();
 
@@ -98,6 +127,14 @@ public class SQLHelper {
         return new Statistics(metrics);
     }
 
+    /**
+     * Given SQL queries to be executed on CPU and Memory table for a particular host, return the resultant statistics
+     *
+     * @param cpuQuery  SQL query to be executed on CPU table
+     * @param memoryQuery  SQL query to be executed on Memory table
+     * @param hostId  The id of the host
+     * @return  The resultant statistics
+     */
     public Statistics getStatistics(String cpuQuery, String memoryQuery, String hostId) {
         List<Metric> metrics = new ArrayList<>();
 
@@ -107,7 +144,12 @@ public class SQLHelper {
         return new Statistics(metrics);
     }
 
-    //TODO refactor
+    /**
+     * Execute the given sql query on the CPU table and return the results
+     *
+     * @param sql  String representing SQL query
+     * @return  A List of CPU metrics
+     */
     public List<CPU> executeCPUQuery(String sql) {
         Statement statement;
         List<CPU> cpuMetrics = new ArrayList<>();
@@ -125,6 +167,13 @@ public class SQLHelper {
         return cpuMetrics;
     }
 
+    /**
+     * Execute the given sql query on the CPU table for a particular host  and return the results
+     *
+     * @param sql  String representing SQL query
+     * @param hostId  The id of the host
+     * @return A List of CPU metrics
+     */
     public List<CPU> executeCPUQuery(String sql, String hostId) {
         List<CPU> cpuMetrics = new ArrayList<>();
         try {
@@ -142,6 +191,12 @@ public class SQLHelper {
         return cpuMetrics;
     }
 
+    /**
+     * Map the given resultset to a List of CPU metrics
+     *
+     * @param resultSet  Resultset to be mapped
+     * @return  List of CPU metrics
+     */
     public List<CPU> getCPUMetrics(ResultSet resultSet) {
         List<CPU> cpuMetrics = new ArrayList<>();
         try {
@@ -169,6 +224,12 @@ public class SQLHelper {
         return cpuMetrics;
     }
 
+    /**
+     * Execute the given SQL query on the Memory table
+     *
+     * @param sql  String representing SQL query
+     * @return  List of Memory metrics
+     */
     public List<Memory> executeMemoryQuery(String sql) {
         Statement statement;
         List<Memory> memoryMetrics = new ArrayList<>();
@@ -187,6 +248,13 @@ public class SQLHelper {
         return memoryMetrics;
     }
 
+    /**
+     * Execute the given SQL query for the given host on the Memory table
+     *
+     * @param sql  A String representing SQL query
+     * @param hostId  The id of the host
+     * @return A List of CPU metrics
+     */
     public List<Memory> executeMemoryQuery(String sql, String hostId) {
         List<Memory> memoryMetrics = new ArrayList<>();
         try {
@@ -205,6 +273,12 @@ public class SQLHelper {
         return memoryMetrics;
     }
 
+    /**
+     * Map the given resultset to a List of Memory metrics
+     *
+     * @param resultSet  Resultset to be mapped
+     * @return List of Memory metrics
+     */
     public List<Memory> getMemoryMetrics(ResultSet resultSet) {
         List<Memory> memoryMetrics = new ArrayList<>();
 

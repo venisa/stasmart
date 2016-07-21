@@ -54,7 +54,7 @@ public class HostServlet {
     /**
      * This method corresponds to the '/hosts/{hostId}/latest endpoint. It gives the latest performance metrics of a particular host.
      */
-    public Response getStatistics(@PathParam("hostId") String hostId) {
+    public Response getLatest(@PathParam("hostId") String hostId) {
         return ResponseUtils.getResponse(SQLHelper.getLatest(hostId));
     }
 

@@ -9,6 +9,12 @@ import javax.ws.rs.core.Response;
  */
 public class ResponseUtils {
 
+    /**
+     * Given a result Object, map it to a Response object
+     *
+     * @param result  The result to be displayed
+     * @return The Response to be returned to the user
+     */
     public static Response getResponse(Object result) {
         ObjectMapper mapper = new ObjectMapper();
 
